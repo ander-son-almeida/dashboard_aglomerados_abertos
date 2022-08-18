@@ -14,14 +14,202 @@ from astropy.coordinates import SkyCoord
 from scipy.optimize import curve_fit 
 import streamlit as st
 import sys
-# sys.path.append('\oc_tools\\')
-from oc_tools_padova_edr3 import *
+# # sys.path.append('\oc_tools\\')
+# from oc_tools_padova_edr3 import *
 
-grid_dir = ('\grids\\')
-mod_grid, age_grid, z_grid = load_mod_grid(grid_dir, isoc_set='GAIA_eDR3')
-filters = ['Gmag','G_BPmag','G_RPmag']
-refMag = 'Gmag' 
+###############################################
+# Make an observed synthetic cluster given an isochrone,
+# distance, E(B-V) and Rv
+# Al/Av = a + b/rv
+# Av = rv*ebv
 
+def make_obs_iso(bands, iso, dist, Av, gaia_ext = False):
+    #redden and move isochrone
+    obs_iso = np.copy(iso)
+    
+    color = iso['G_BPmag'] - iso['G_RPmag']
+
+    for filter in bands:
+        
+        if gaia_ext:
+            
+            # get coeficients
+#            c1, c2, c3, c4, c5, c6, c7 = gaia_ext_coefs(filter)
+#            AloAv = c1 + c2*color + c3*color**2 + c4*color**3 + c5*Av + c6*Av**2 + c7*color*Av
+            
+            AloAv = gaia_ext_Hek(color, Av,filter)
+            
+            # apply correction
+            obs_iso[filter] = iso[filter] + 5.*np.log10(dist*1.e3) - 5.+ AloAv*Av
+            
+        else:
+            # get CCm coeficients
+            wav,a,b = ccm_coefs(filter)
+        
+            # apply ccm model and make observed iso
+            obs_iso[filter] = iso[filter] + 5.*np.log10(dist*1.e3) - 5.+ ( (a + b/3.1)*Av )
+        
+    return obs_iso
+
+
+def get_iso_from_grid(age,met,bands,refMag,Abscut=False, nointerp=False):
+
+    #grid_iso = get_iso_from_grid(age,(10.**FeH)*0.0152,filters,refMag, nointerp=False)
+    
+    global mod_grid, age_grid, z_grid
+    # check to see if grid is loaded
+    if 'mod_grid' not in globals(): 
+        raise NameError('Isochrone grid not loaded!')
+        
+    # find closest values to given age and Z
+    dist_age = np.abs(age - age_grid)#/age
+    ind_age = dist_age.argsort()
+    dist_z = np.abs(met - z_grid)#/met
+    ind_z = dist_z.argsort()
+    
+    dist0 = np.sqrt(dist_age[ind_age[0]]**2 + dist_z[ind_z[0]]**2)
+    dist1 = np.sqrt(dist_age[ind_age[1]]**2 + dist_z[ind_z[1]]**2)
+
+#    dist0 = np.sqrt(dist_age[ind_age[0]]**2)
+#    dist1 = np.sqrt(dist_age[ind_age[1]]**2)
+    
+    dist_age_0 = dist_age[ind_age[0]]/(dist_age[ind_age[0]]+dist_age[ind_age[1]])
+    dist_age_1 = dist_age[ind_age[1]]/(dist_age[ind_age[0]]+dist_age[ind_age[1]])
+    dist_z_0 = dist_z[ind_z[0]]/(dist_z[ind_z[0]]+dist_z[ind_z[1]])
+    dist_z_1 = dist_z[ind_z[1]]/(dist_z[ind_z[0]]+dist_z[ind_z[1]])
+    
+    dist0 = np.sqrt(dist_age_0**2 + dist_z_0**2)
+    dist1 = np.sqrt(dist_age_1**2 + dist_z_1**2)
+    
+    # get the closest isochrone to the given age and Z
+    #apply absolute mag cut if set
+    if(Abscut):
+        iso1 = mod_grid[(mod_grid['logAge'] == age_grid[ind_age[0]]) & 
+                       (mod_grid['Zini'] == z_grid[ind_z[0]]) & 
+                       (mod_grid[refMag] < Abscut)]
+        iso2 = mod_grid[(mod_grid['logAge'] == age_grid[ind_age[1]]) & 
+                       (mod_grid['Zini'] == z_grid[ind_z[1]]) & 
+                       (mod_grid[refMag] < Abscut)]
+    else:
+        iso1 = mod_grid[(mod_grid['logAge'] == age_grid[ind_age[0]]) &
+                       (mod_grid['Zini'] == z_grid[ind_z[0]])]
+        iso2 = mod_grid[(mod_grid['logAge'] == age_grid[ind_age[1]]) &
+                       (mod_grid['Zini'] == z_grid[ind_z[1]])]   
+        
+    photint = []
+    
+    for filter in bands:
+        mass_int = []
+        finalmass_int = []
+        f_int = []
+        
+        for n in np.unique(iso1['label']):
+            
+            f1 = iso1[filter][iso1['label'] == n]
+            f2 = iso2[filter][iso2['label'] == n]
+            
+            m1 = iso1['Mini'][iso1['label'] == n]
+            m2 = iso2['Mini'][iso2['label'] == n]
+
+            mf1 = iso1['Mass'][iso1['label'] == n]
+            mf2 = iso2['Mass'][iso2['label'] == n]
+
+            if(f1.size < 2 or f2.size < 2):
+                    
+                continue
+
+            elif(f1.size > f2.size):
+                npoints = f2.size
+                
+                f1i = interp1d(np.arange(f1.size),f1)
+                f1 = f1i(np.linspace(0,f1.size-1,npoints))
+                
+                m1i = interp1d(np.arange(m1.size),m1)
+                m1 = m1i(np.linspace(0,m1.size-1,npoints))
+                
+                mf1i = interp1d(np.arange(mf1.size),mf1)
+                mf1 = m1i(np.linspace(0,mf1.size-1,npoints))
+                
+            else:
+                npoints = f1.size
+
+                f2i = interp1d(np.arange(f2.size),f2)
+                f2 = f2i(np.linspace(0,f2.size-1,npoints))
+                
+                m2i = interp1d(np.arange(m2.size),m2)
+                m2 = m2i(np.linspace(0,m2.size-1,npoints))
+                
+                mf2i = interp1d(np.arange(mf2.size),mf2)
+                mf2 = mf2i(np.linspace(0,mf2.size-1,npoints))
+                
+            t = dist0/(dist0+dist1)
+            
+            mass_int = np.concatenate([mass_int, (1.-t)*m1+t*m2])
+            finalmass_int = np.concatenate([finalmass_int, (1.-t)*mf1+t*mf2])
+            f_int = np.concatenate([f_int, (1.-t)*f1+t*f2 ])
+            
+
+        photint.append(f_int)
+
+    # keep mass field for future use
+    photint.append(mass_int)
+    photint.append(finalmass_int)
+
+##########################################################
+    if nointerp:
+        # get the closest isochrone to the given age and Z
+        #apply absolute mag cut if set
+        if(Abscut):
+            iso = mod_grid[(mod_grid['logAge'] == age_grid[ind_age[0]]) & 
+                           (mod_grid['Zini'] == z_grid[ind_z[0]]) & 
+                           (mod_grid[refMag] < Abscut)]
+        else:
+            iso = mod_grid[(mod_grid['logAge'] == age_grid[ind_age[0]]) &
+                          (mod_grid['Zini'] == z_grid[ind_z[0]])]
+            
+        photint = []
+
+        for filter in bands:
+            photint.append(iso[filter])
+        photint.append(iso['Mini'])
+        photint.append(iso['Mass'])
+###########################################################
+        
+    
+    cols = bands[:]
+    cols.append('Mini')
+    cols.append('Mass')
+    
+    return np.core.records.fromarrays(photint, names=cols)
+
+###############################################
+# Load binary file with full isochrone grid
+# and returns array of data and arrays of unique age and Z values
+#
+def load_mod_grid(dir, isoc_set='UBVRI'):
+    global mod_grid
+    global age_grid
+    global z_grid
+
+    if(isoc_set == 'UBVRI'):
+        mod_grid = np.load(dir+'full_isoc_UBVRI.npy')
+        
+    if(isoc_set == 'GAIA'):
+        mod_grid = np.load(dir+'full_isoc_GAIA_CMD33.npy')
+
+    if(isoc_set == 'GAIA_eDR3'):
+        mod_grid = np.load(dir+'full_isoc_Gaia_eDR3_CMD34.npy')
+
+    if(isoc_set == 'MIST-UBVRI'):
+        mod_grid = np.load(dir+'full_isoc_MIST-UBVRI.npy')
+        
+    if(isoc_set == 'MIST-GAIA'):
+        mod_grid = np.load(dir+'full_isoc_MIST-GAIA.npy')
+            
+    age_grid = np.unique(mod_grid['logAge'])
+    z_grid = np.unique(mod_grid['Zini'])
+    
+    return mod_grid, age_grid, z_grid
 
 
 def twosided_IMF(m, Mc=0., slopeA=0., offsetA=1., slopeB=-1.0):
@@ -96,7 +284,10 @@ def mass_function(mass, title):
 
 # def load_cluster(cluster_name):
     
-
+grid_dir = ('\grids\\')
+mod_grid, age_grid, z_grid = load_mod_grid(grid_dir, isoc_set='GAIA_eDR3')
+filters = ['Gmag','G_BPmag','G_RPmag']
+refMag = 'Gmag' 
 
 
 #parametros fundamentais
