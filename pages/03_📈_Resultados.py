@@ -9,7 +9,7 @@ diretorio = r'S:\Área de Trabalho\software'
 diretorio2 = r'S:\Área de Trabalho'
 
 import numpy as np
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 import pandas as pd 
 # from oc_tools_padova_edr3 import *
 from astropy import units as u
