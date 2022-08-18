@@ -7,20 +7,22 @@ Created on Fri Aug 12 23:15:51 2022
 
 
 import numpy as np
-# import matplotlib.pyplot as plt
 import pandas as pd 
 from oc_tools_padova_edr3 import *
 from astropy import units as u
 from astropy.coordinates import SkyCoord
 from scipy.optimize import curve_fit 
 import streamlit as st
-
-#lendo isócronas
+import sys
+sys.path.append('\oc_tools')
+from oc_tools_padova_edr3 import *
 
 grid_dir = ('\grids\\')
 mod_grid, age_grid, z_grid = load_mod_grid(grid_dir, isoc_set='GAIA_eDR3')
 filters = ['Gmag','G_BPmag','G_RPmag']
 refMag = 'Gmag' 
+
+
 
 def twosided_IMF(m, Mc=0., slopeA=0., offsetA=1., slopeB=-1.0):
     res = []
