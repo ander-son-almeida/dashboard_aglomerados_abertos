@@ -5,26 +5,19 @@ Created on Fri Aug 12 23:15:51 2022
 @author: Anderson Almeida
 """
 
-diretorio = r'S:\Área de Trabalho\software'
-diretorio2 = r'S:\Área de Trabalho'
 
 import numpy as np
 # import matplotlib.pyplot as plt
 import pandas as pd 
-# from oc_tools_padova_edr3 import *
+from oc_tools_padova_edr3 import *
 from astropy import units as u
 from astropy.coordinates import SkyCoord
 from scipy.optimize import curve_fit 
 import streamlit as st
 
-
-import sys
-sys.path.append(diretorio2 + '\Dashboard_Ocs')
-from oc_tools_padova_edr3 import *
-
 #lendo isócronas
 
-grid_dir = (diretorio + '\clusters\gaia_dr3\grids\\')
+grid_dir = ('\grids\\')
 mod_grid, age_grid, z_grid = load_mod_grid(grid_dir, isoc_set='GAIA_eDR3')
 filters = ['Gmag','G_BPmag','G_RPmag']
 refMag = 'Gmag' 
@@ -105,13 +98,12 @@ def mass_function(mass, title):
 
 
 #parametros fundamentais
-cluster = pd.read_csv(diretorio + r'\results_eDR3_likelihood_2022_ptbr\results\log-results-eDR3-MF_detalhada.csv',
-                              sep=';')
+cluster = pd.read_csv('\data\log-results-eDR3-MF_detalhada.csv', sep=';')
 
 cluster = cluster.to_records()
 #----------------------------------------------------------------------------------------------------            
 #aplicando o filtro de aglomerados bons
-filtro1 = pd.read_csv(diretorio + r'\avaliar_ocs\lista_OCs_classificados.csv', sep=';')
+filtro1 = pd.read_csv('\filters\lista_OCs_classificados.csv', sep=';')
 filtro = filtro1.to_records()  
 ab, a_ind, b_ind = np.intersect1d(cluster['name'],filtro['clusters_bons'],  return_indices=True)
 cluster = cluster[a_ind]
@@ -139,7 +131,7 @@ cluster_name = st.sidebar.selectbox(
     
 ###############################################################################
 # read memberships
-members_ship = pd.read_csv(diretorio + r'\results_eDR3_likelihood_2022\membership_data_edr3\{}_data_stars.csv'.
+members_ship = pd.read_csv('\data\membership_data_edr3\membership_data_edr3\{}_data_stars.csv'.
                            format(cluster_name), sep=';')
 
 RA = members_ship['RA_ICRS']
