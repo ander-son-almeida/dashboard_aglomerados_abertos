@@ -8,7 +8,6 @@ Created on Fri Aug 12 23:15:51 2022
 
 import numpy as np
 import pandas as pd 
-from oc_tools_padova_edr3 import *
 from astropy import units as u
 from astropy.coordinates import SkyCoord
 from scipy.optimize import curve_fit 
