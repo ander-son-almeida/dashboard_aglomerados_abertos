@@ -14,7 +14,7 @@ from astropy.coordinates import SkyCoord
 from scipy.optimize import curve_fit 
 import streamlit as st
 import sys
-sys.path.append('\oc_tools')
+sys.path.append('\oc_tools\\')
 from oc_tools_padova_edr3 import *
 
 grid_dir = ('\grids\\')
