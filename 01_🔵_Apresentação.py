@@ -10,6 +10,8 @@ Created on Tue Aug 16 23:50:07 2022
 
 import streamlit as st
 
+st.set_page_config(page_title="Apresentação",layout='centered', page_icon='🔵')
+
 st.title('Determinação da massa de aglomerados abertos utilizando dados do catálogo EDR3')
 
 st.subheader('Dissertação de mestrado defendida por Anderson Almeida, sob orientação do Prof. Dr. Hektor Monteiro.')
