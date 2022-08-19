@@ -14,7 +14,7 @@ from scipy.optimize import curve_fit
 import streamlit as st
 import sys
 # # sys.path.append('\oc_tools\\')
-# from oc_tools_padova_edr3 import *
+from oc_tools_padova_edr3 import *
 
 
 
@@ -89,9 +89,7 @@ def mass_function(mass, title):
             offset_error, alpha_low_mass_error, mass_bin_ctr, mass_cnt, mass_cnt_er, popt)
 
 
-import sys
-sys.path.append('oc_tools\\')
-from oc_tools_padova_edr3 import *
+
 
 #lendo isócronas
 
