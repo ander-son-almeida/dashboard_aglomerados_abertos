@@ -104,10 +104,6 @@ mod_grid = np.load('grids/full_isoc_Gaia_eDR3_CMD34.npy')
 age_grid = np.unique(mod_grid['logAge'])
 z_grid = np.unique(mod_grid['Zini'])
 
-global mod_grid
-global age_grid
-global z_grid
-
 
 # mod_grid, age_grid, z_grid = load_mod_grid(grid_dir)
 filters = ['Gmag','G_BPmag','G_RPmag']
