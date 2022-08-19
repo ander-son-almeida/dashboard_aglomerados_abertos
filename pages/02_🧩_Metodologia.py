@@ -87,7 +87,7 @@ st.write('🔹 Simulação predefinida de distância e de avermelhamento das est
 st.write('🔹 Adição de erros fotométricos segundo a definição dos dados Gaia EDR3;')
 st.write('🔹 Distribuição espacial das estrelas de acordo com um perfil de King.')
 
-image2 = Image.open('images/\Gráfico-sintéticos.png')
+image2 = Image.open('images/Gráfico-sintéticos.png')
 st.image(image2, caption='Quatro aglomerados sintéticos plotados em coordenadas RA e DEC para duas idades, distâncias e avermelhamentos.')
 
 
