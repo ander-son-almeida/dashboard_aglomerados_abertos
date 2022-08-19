@@ -8,16 +8,11 @@ Created on Wed Aug 17 21:28:18 2022
 import streamlit as st
 from PIL import Image
 
-st.title('fghfghfd')
+# st.title('fghfghfd')
 
 st.write('''
 
-
-
-Neste programa temos a autonomia de definir diversos parâmetros como idade, distância, 
-metalicidade, avermelhamento, fração de binárias e número de estrelas para compor
-o aglomerado. Além disso, temos informações sobre a massa individual de cada estrela
-membro e suas magnitudes nos filtros 𝐺, 𝐺𝐵𝑃 e 𝐺𝑅𝑃 do Gaia EDR3.
-
-O processo de geração do aglomerado sintético segue os seguintes passos:
+Para eventuais dúvidas, informações ou colaborações, por favor entre em contato com conosco pelo email:
+    andersonalmeida_sa@outlook.com
+    
     ''')

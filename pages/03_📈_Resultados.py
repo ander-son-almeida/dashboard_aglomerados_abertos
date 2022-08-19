@@ -121,10 +121,10 @@ list_clusters = cluster['name']
 st.set_page_config(page_title="Resultados",layout='wide', page_icon='✨')
 
 # Using object notation
-st.sidebar.header(r"$aglomerados \: abertos$")
+# st.sidebar.header(r"$aglomerados \: abertos$")
 
 cluster_name = st.sidebar.selectbox(
-    "Aglomerado aberto:",
+    "Selecione o aglomerado:",
     (list(list_clusters))
 )
 
@@ -230,8 +230,7 @@ fig = go.Figure(data = fig1.data + fig2.data).update_layout(coloraxis=fig1.layou
 fig.update_layout(xaxis_title= 'G_BP - G_RP (mag)',
                   yaxis_title="G (mag)",
                   coloraxis_colorbar=dict(title="M☉"),
-                  yaxis_range=[20,5],
-                  height=800,width=900)
+                  yaxis_range=[20,5])
 
 #height=800,width=900
 

@@ -56,7 +56,7 @@ jutamente de seus parâmetros fundamentais e outros determinados por nós.
 ''')
 
 
-image = Image.open(diretorio +'\Dashboard_Ocs\images\distribuicao_aglomerados.png')
+image = Image.open('images/distribuicao_aglomerados.png')
 
 st.image(image, caption='Distribuição galáctica dos 900 aglomerados abertos selecionados neste trabalho. O gráfico apresenta os aglomerados em coordenadas galácticas. A cor é proporcional à idade, sendo azul um aglomerado jovem, verde de idade intermediária e amarelo um aglomerado velho')
 
@@ -87,7 +87,7 @@ st.write('🔹 Simulação predefinida de distância e de avermelhamento das est
 st.write('🔹 Adição de erros fotométricos segundo a definição dos dados Gaia EDR3;')
 st.write('🔹 Distribuição espacial das estrelas de acordo com um perfil de King.')
 
-image2 = Image.open(diretorio +'\Dashboard_Ocs\images\Gráfico-sintéticos.png')
+image2 = Image.open('images/\Gráfico-sintéticos.png')
 st.image(image2, caption='Quatro aglomerados sintéticos plotados em coordenadas RA e DEC para duas idades, distâncias e avermelhamentos.')
 
 
@@ -136,7 +136,7 @@ as estrelas observadas (em cinza) se sobrepõem a uma gama de estrelas sintétic
 ''')
 
 
-image2 = Image.open(diretorio +'\Dashboard_Ocs\images\exemplo_metodo01.png')
+image2 = Image.open('images/exemplo_metodo01.png')
 st.image(image2, caption='Exemplo de determinação de massa com um aglomerado sintético. Geramos um aglomerado sintético de log(age) = 8.5, distância = 1.0 kpc, avermelhamento = 1.0 magnitude, de metalicidade solar e com 300 estrelas observáveis − estas últimas são representadas pelas marcações "+"em cinza.')
 
 st.write('''
