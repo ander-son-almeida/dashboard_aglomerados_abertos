@@ -13,14 +13,14 @@ Provides usefull function to deal with GAIA data
 import numpy as np
 from scipy.interpolate import interp1d,LinearNDInterpolator,griddata
 from scipy.integrate import trapz,cumtrapz
-import matplotlib.pyplot as plt
-from astropy import units as u
-import sys
+# import matplotlib.pyplot as plt
+# from astropy import units as u
+# import sys
 from scipy import stats
 from scipy.spatial.distance import cdist
 from scipy import stats
 from astropy.modeling import models
-from numba import jit
+# from numba import jit
 ###############################################
 # function to add columns to rec array
 
