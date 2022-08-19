@@ -109,7 +109,7 @@ cluster = pd.read_csv('data/log-results-eDR3-MF_detalhada.csv', sep=';')
 cluster = cluster.to_records()
 #----------------------------------------------------------------------------------------------------            
 #aplicando o filtro de aglomerados bons
-filtro1 = pd.read_csv('filters\lista_OCs_classificados.csv', sep=';')
+filtro1 = pd.read_csv('filters/lista_OCs_classificados.csv', sep=';')
 filtro = filtro1.to_records()  
 ab, a_ind, b_ind = np.intersect1d(cluster['name'],filtro['clusters_bons'],  return_indices=True)
 cluster = cluster[a_ind]
