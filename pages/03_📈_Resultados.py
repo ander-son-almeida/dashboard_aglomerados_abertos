@@ -316,9 +316,14 @@ plot_ind1 = px.scatter(fm_ind, x="mass_bin_ctr", y="mass_cnt", error_y="mass_cnt
 plot_ind2 = px.line(fm_ind_adj, x = 'xplot', y = 'ajuste', color_discrete_sequence = ['orange'])
 plot_ind = go.Figure(data = plot_ind1.data + plot_ind2.data)
 
-plot_ind.update_layout(title='Estrelas Individuais', 
-                       xaxis_title = 'log(M☉)',
-                       yaxis_title='ξ(log(M☉)')
+plot_ind.update_layout(title='αA = {} ± {};  αB = {} ± {};  Mc = {} ± {}'.format(alpha_high_mass,
+                                                                               alpha_high_mass_error,
+                                                                               alpha_low_mass,
+                                                                               alpha_low_mass_error,
+                                                                               Mc,
+                                                                               Mc_error), 
+                                                                               xaxis_title = 'log(M☉)',
+                                                                               yaxis_title='ξ(log(M☉)')
 
 
 
@@ -354,8 +359,8 @@ plot_prim.update_layout(title='αA = {} ± {};  αB = {} ± {};  Mc = {} ± {}'.
                                                                                alpha_low_mass_error,
                                                                                Mc,
                                                                                Mc_error), 
-                        xaxis_title = 'log(M☉)',
-                        yaxis_title='ξ(log(M☉)')
+                                                                               xaxis_title = 'log(M☉)',
+                                                                               yaxis_title='ξ(log(M☉)')
 
 
 
@@ -383,9 +388,14 @@ plot_sec1 = px.scatter(fm_sec, x="mass_bin_ctr", y="mass_cnt", error_y="mass_cnt
 plot_sec2 = px.line(fm_sec_adj, x = 'xplot', y = 'ajuste', color_discrete_sequence = ['orange'])
 plot_sec = go.Figure(data = plot_sec1.data + plot_sec2.data)
 
-plot_sec.update_layout(title='Estrelas Secundárias', 
-                       xaxis_title = 'log(M☉)',
-                       yaxis_title='ξ(log(M☉)')
+plot_sec.update_layout(title='αA = {} ± {};  αB = {} ± {};  Mc = {} ± {}'.format(alpha_high_mass,
+                                                                               alpha_high_mass_error,
+                                                                               alpha_low_mass,
+                                                                               alpha_low_mass_error,
+                                                                               Mc,
+                                                                               Mc_error), 
+                                                                               xaxis_title = 'log(M☉)',
+                                                                               yaxis_title='ξ(log(M☉)')
 
 
 
@@ -414,9 +424,14 @@ plot_bin1 = px.scatter(fm_bin, x="mass_bin_ctr", y="mass_cnt", error_y="mass_cnt
 plot_bin2 = px.line(fm_bin_adj, x = 'xplot', y = 'ajuste', color_discrete_sequence = ['orange'])
 plot_bin = go.Figure(data = plot_bin1.data + plot_bin2.data)
 
-plot_bin.update_layout(title=r'$Estrelas Binárias$', 
-                       xaxis_title = 'log(M☉)',
-                       yaxis_title='ξ(log(M☉)')
+plot_bin.update_layout(title='αA = {} ± {};  αB = {} ± {};  Mc = {} ± {}'.format(alpha_high_mass,
+                                                                               alpha_high_mass_error,
+                                                                               alpha_low_mass,
+                                                                               alpha_low_mass_error,
+                                                                               Mc,
+                                                                               Mc_error), 
+                                                                               xaxis_title = 'log(M☉)',
+                                                                               yaxis_title='ξ(log(M☉)')
 
 
 
