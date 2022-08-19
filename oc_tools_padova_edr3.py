@@ -51,7 +51,7 @@ def save_mod_grid(dir, isoc_set='UBVRI'):
 # Load binary file with full isochrone grid
 # and returns array of data and arrays of unique age and Z values
 #
-def load_mod_grid(dir):
+def load_mod_grid():
     global mod_grid
     global age_grid
     global z_grid
