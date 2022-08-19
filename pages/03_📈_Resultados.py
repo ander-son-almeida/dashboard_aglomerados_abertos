@@ -137,7 +137,7 @@ cluster_name = st.sidebar.selectbox(
     
 ###############################################################################
 # read memberships
-members_ship = pd.read_csv('data/membership_data_edr3/membership_data_edr3/{}_data_stars.csv'.
+members_ship = pd.read_csv('data/membership_data_edr3/{}_data_stars.csv'.
                            format(cluster_name), sep=';')
 
 RA = members_ship['RA_ICRS']
