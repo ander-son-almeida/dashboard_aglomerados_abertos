@@ -190,8 +190,8 @@ def load_mod_grid(grid_dir):
     global age_grid
     global z_grid
 
-    mod_grid = grid_dir
-
+    mod_grid = np.load(grid_dir)
+            
     age_grid = np.unique(mod_grid['logAge'])
     z_grid = np.unique(mod_grid['Zini'])
     
