@@ -348,7 +348,12 @@ plot_prim1 = px.scatter(fm_prim, x="mass_bin_ctr", y="mass_cnt", error_y="mass_c
 plot_prim2 = px.line(fm_prim_adj, x = 'xplot', y = 'ajuste', color_discrete_sequence = ['orange'])
 plot_prim = go.Figure(data = plot_prim1.data + plot_prim2.data)
 
-plot_prim.update_layout(title='Estrelas Primárias', 
+plot_prim.update_layout(title='αA={}±{}; αB={}±{}; Mc={}±{}'.format(alpha_high_mass,
+                                                                    alpha_high_mass_error,
+                                                                    alpha_low_mass,
+                                                                    alpha_low_mass_error,
+                                                                    Mc,
+                                                                    Mc_error), 
                         xaxis_title = 'log(M☉)',
                         yaxis_title='ξ(log(M☉)')
 
@@ -446,11 +451,11 @@ with container2:
     st.header("Funções de Massa")
     
     with col4:
-        st.write("Individuais")
+        st.write("Estrelas Individuais")
         st.plotly_chart(plot_ind, use_container_width=True)
     
     with col5:
-        st.write("Primárias")
+        st.write("Estrelas Primárias")
         st.plotly_chart(plot_prim, use_container_width=True)
     
 
@@ -462,11 +467,11 @@ with container3:
     
     
     with col6:
-        st.write("Secundárias")
+        st.write("Estrelas Secundárias")
         st.plotly_chart(plot_sec, use_container_width=True)
 
     with col7:
-        st.write("Binárias")
+        st.write("Estrelas Binárias")
         st.plotly_chart(plot_bin, use_container_width=True)
 
 
