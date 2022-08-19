@@ -8,7 +8,7 @@ Created on Wed Aug 17 21:27:24 2022
 import streamlit as st
 from PIL import Image
 
-# st.title('Aglomerados Sintéticos')
+st.set_page_config(page_title="Catálogo",layout='centered', page_icon='📔')
 
 st.write('''
 
