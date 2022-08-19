@@ -93,15 +93,11 @@ def mass_function(mass, title):
 
 #lendo isócronas
 
-grid_dir = ('\grids')
+grid_dir = np.load('grids/full_isoc_Gaia_eDR3_CMD34.npy')
 mod_grid, age_grid, z_grid = load_mod_grid(grid_dir, isoc_set='GAIA_eDR3')
 filters = ['Gmag','G_BPmag','G_RPmag']
 refMag = 'Gmag' 
     
-mod_grid = np.load('grids/full_isoc_Gaia_eDR3_CMD34.npy')
-age_grid = np.unique(mod_grid['logAge'])
-z_grid = np.unique(mod_grid['Zini'])
-
 
 # mod_grid, age_grid, z_grid = load_mod_grid(grid_dir)
 filters = ['Gmag','G_BPmag','G_RPmag']
