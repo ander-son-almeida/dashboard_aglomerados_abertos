@@ -185,17 +185,17 @@ def get_iso_from_grid(age,met,bands,refMag,Abscut=False, nointerp=False):
 # Load binary file with full isochrone grid
 # and returns array of data and arrays of unique age and Z values
 #
-def load_mod_grid(grid_dir):
-    global mod_grid
-    global age_grid
-    global z_grid
+# def load_mod_grid(grid_dir):
+#     global mod_grid
+#     global age_grid
+#     global z_grid
 
-    mod_grid = np.load(grid_dir)
+#     mod_grid = np.load(grid_dir)
             
-    age_grid = np.unique(mod_grid['logAge'])
-    z_grid = np.unique(mod_grid['Zini'])
+#     age_grid = np.unique(mod_grid['logAge'])
+#     z_grid = np.unique(mod_grid['Zini'])
     
-    return mod_grid, age_grid, z_grid
+#     return mod_grid, age_grid, z_grid
 
 
 def twosided_IMF(m, Mc=0., slopeA=0., offsetA=1., slopeB=-1.0):
@@ -270,8 +270,16 @@ def mass_function(mass, title):
 
 # def load_cluster(cluster_name):
     
-grid_dir = ('grids/full_isoc_Gaia_eDR3_CMD34.npy')
-mod_grid, age_grid, z_grid = load_mod_grid(grid_dir)
+mod_grid = np.load('grids/full_isoc_Gaia_eDR3_CMD34.npy')
+age_grid = np.unique(mod_grid['logAge'])
+z_grid = np.unique(mod_grid['Zini'])
+
+global mod_grid
+global age_grid
+global z_grid
+
+
+# mod_grid, age_grid, z_grid = load_mod_grid(grid_dir)
 filters = ['Gmag','G_BPmag','G_RPmag']
 refMag = 'Gmag' 
 
