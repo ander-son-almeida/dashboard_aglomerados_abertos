@@ -9,7 +9,7 @@ import streamlit as st
 from PIL import Image
 
 
-st.set_page_config(page_title="Metologia",layout='centered', page_icon='🧩')
+st.set_page_config(page_title="Metodologia",layout='centered', page_icon='🧩')
 
 st.title('Metodologia')
 
