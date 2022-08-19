@@ -118,7 +118,7 @@ cluster = cluster[a_ind]
 # cluster_name = cluster['name']
 list_clusters = cluster['name']
 
-st.set_page_config(page_title="Resultados",layout='centered')
+st.set_page_config(page_title="Resultados",layout='wide', menu_items ='teste')
 
 # Using object notation
 st.sidebar.header(r"$aglomerados \: abertos$")
