@@ -40,3 +40,11 @@ Sendo assim, esse Dashaboard foi desenvolvido com objetivo de divulgar os result
 uma interface gráfica para o pesquisador/usuário selecionar. 
     ''')
         
+st.subheader('A página ainda está em processo de atualização!')
+
+st.write('''
+
+Para eventuais dúvidas, informações ou colaborações, por favor entre em contato pelo email:
+    andersonalmeida_sa@outlook.com
+    
+    ''')
