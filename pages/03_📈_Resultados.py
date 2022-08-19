@@ -230,7 +230,8 @@ fig = go.Figure(data = fig1.data + fig2.data).update_layout(coloraxis=fig1.layou
 fig.update_layout(xaxis_title= 'G_BP - G_RP (mag)',
                   yaxis_title="G (mag)",
                   coloraxis_colorbar=dict(title="M☉"),
-                  yaxis_range=[20,5])
+                  yaxis_range=[20,5],
+                  height=800,width=900)
 
 #height=800,width=900
 
