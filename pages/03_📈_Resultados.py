@@ -348,12 +348,12 @@ plot_prim1 = px.scatter(fm_prim, x="mass_bin_ctr", y="mass_cnt", error_y="mass_c
 plot_prim2 = px.line(fm_prim_adj, x = 'xplot', y = 'ajuste', color_discrete_sequence = ['orange'])
 plot_prim = go.Figure(data = plot_prim1.data + plot_prim2.data)
 
-plot_prim.update_layout(title='αA={}±{}; αB={}±{}; Mc={}±{}'.format(alpha_high_mass,
-                                                                    alpha_high_mass_error,
-                                                                    alpha_low_mass,
-                                                                    alpha_low_mass_error,
-                                                                    Mc,
-                                                                    Mc_error), 
+plot_prim.update_layout(title='αA= {} ± {}; αB = {} ± {}; Mc = {} ± {}'.format(alpha_high_mass,
+                                                                               alpha_high_mass_error,
+                                                                               alpha_low_mass,
+                                                                               alpha_low_mass_error,
+                                                                               Mc,
+                                                                               Mc_error), 
                         xaxis_title = 'log(M☉)',
                         yaxis_title='ξ(log(M☉)')
 
