@@ -283,7 +283,7 @@ def mass_function(mass, title):
 
 # def load_cluster(cluster_name):
     
-grid_dir = ('ander-son-almeida/dashboard_aglomerados_abertos/grids/')
+grid_dir = ('grids/')
 mod_grid, age_grid, z_grid = load_mod_grid(grid_dir, isoc_set='GAIA_eDR3')
 filters = ['Gmag','G_BPmag','G_RPmag']
 refMag = 'Gmag' 
