@@ -59,7 +59,7 @@ def load_mod_grid():
 
 
 
-    mod_grid = np.load('grids\full_isoc_Gaia_eDR3_CMD34.npy')
+    mod_grid = np.load('full_isoc_Gaia_eDR3_CMD34.npy')
 
 
     age_grid = np.unique(mod_grid['logAge'])
