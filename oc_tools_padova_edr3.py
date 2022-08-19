@@ -56,11 +56,7 @@ def load_mod_grid():
     global age_grid
     global z_grid
 
-
-
-
     mod_grid = np.load('full_isoc_Gaia_eDR3_CMD34.npy')
-
 
     age_grid = np.unique(mod_grid['logAge'])
     z_grid = np.unique(mod_grid['Zini'])
