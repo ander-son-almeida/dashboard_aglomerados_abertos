@@ -10,6 +10,7 @@ from PIL import Image
 
 
 st.set_page_config(page_title="Metodologia",layout='centered', page_icon='🧩')
+st.sidebar.image("images/logo.png", use_column_width=True)
 
 st.title('Metodologia')
 
