@@ -118,7 +118,7 @@ cluster = cluster[a_ind]
 # cluster_name = cluster['name']
 list_clusters = cluster['name']
 
-st.set_page_config(page_title="My App",layout='wide')
+st.set_page_config(page_title="Resultados",layout='wide')
 
 # Using object notation
 st.sidebar.header(r"$aglomerados \: abertos$")
@@ -316,8 +316,9 @@ plot_ind1 = px.scatter(fm_ind, x="mass_bin_ctr", y="mass_cnt", error_y="mass_cnt
 plot_ind2 = px.line(fm_ind_adj, x = 'xplot', y = 'ajuste', color_discrete_sequence = ['orange'])
 plot_ind = go.Figure(data = plot_ind1.data + plot_ind2.data)
 
-plot_ind.update_layout(title='Estrelas Individuais', xaxis_title= '$log(M_{\odot})$',
-                                            yaxis_title='$\\xi(log(M_{\odot}))$')
+plot_ind.update_layout(title='Estrelas Individuais', 
+                       xaxis_title = 'log(M☉)',
+                       yaxis_title='ξ(log(M☉)')
 
 
 
@@ -347,8 +348,9 @@ plot_prim1 = px.scatter(fm_prim, x="mass_bin_ctr", y="mass_cnt", error_y="mass_c
 plot_prim2 = px.line(fm_prim_adj, x = 'xplot', y = 'ajuste', color_discrete_sequence = ['orange'])
 plot_prim = go.Figure(data = plot_prim1.data + plot_prim2.data)
 
-plot_prim.update_layout(title='Estrelas Primárias', xaxis_title= '$log(M_{\odot})$',
-                                            yaxis_title='$\\xi(log(M_{\odot}))$')
+plot_prim.update_layout(title='Estrelas Primárias', 
+                        xaxis_title = 'log(M☉)',
+                        yaxis_title='ξ(log(M☉)')
 
 
 
@@ -376,8 +378,9 @@ plot_sec1 = px.scatter(fm_sec, x="mass_bin_ctr", y="mass_cnt", error_y="mass_cnt
 plot_sec2 = px.line(fm_sec_adj, x = 'xplot', y = 'ajuste', color_discrete_sequence = ['orange'])
 plot_sec = go.Figure(data = plot_sec1.data + plot_sec2.data)
 
-plot_sec.update_layout(title='Estrelas Secundárias', xaxis_title= '$log(M_{\odot})$',
-                                            yaxis_title='$\\xi(log(M_{\odot}))$')
+plot_sec.update_layout(title='Estrelas Secundárias', 
+                       xaxis_title = 'log(M☉)',
+                       yaxis_title='ξ(log(M☉)')
 
 
 
@@ -406,8 +409,9 @@ plot_bin1 = px.scatter(fm_bin, x="mass_bin_ctr", y="mass_cnt", error_y="mass_cnt
 plot_bin2 = px.line(fm_bin_adj, x = 'xplot', y = 'ajuste', color_discrete_sequence = ['orange'])
 plot_bin = go.Figure(data = plot_bin1.data + plot_bin2.data)
 
-plot_bin.update_layout(title=r'$Estrelas Binárias$', xaxis_title= r"$log(M_{\odot})$",
-                                            yaxis_title=r"$\xi(log(M_{\odot}))$")
+plot_bin.update_layout(title=r'$Estrelas Binárias$', 
+                       xaxis_title = 'log(M☉)',
+                       yaxis_title='ξ(log(M☉)')
 
 
 
@@ -442,11 +446,11 @@ with container2:
     st.header("Funções de Massa")
     
     with col4:
-        st.write("dfgdfgdfgfd")
+        st.write("Individuais")
         st.plotly_chart(plot_ind, use_container_width=True)
     
     with col5:
-        st.write("dfgdfgdfgfd")
+        st.write("Primárias")
         st.plotly_chart(plot_prim, use_container_width=True)
     
 
@@ -458,10 +462,11 @@ with container3:
     
     
     with col6:
-        
+        st.write("Secundárias")
         st.plotly_chart(plot_sec, use_container_width=True)
 
     with col7:
+        st.write("Binárias")
         st.plotly_chart(plot_bin, use_container_width=True)
 
 
