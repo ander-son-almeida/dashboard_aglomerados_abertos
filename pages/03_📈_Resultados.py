@@ -12,10 +12,9 @@ from astropy import units as u
 from astropy.coordinates import SkyCoord
 from scipy.optimize import curve_fit 
 import streamlit as st
-
+import plotly.express as px
+import plotly.graph_objects as go
 from oc_tools_padova_edr3 import *
-
-
 
 
 def twosided_IMF(m, Mc=0., slopeA=0., offsetA=1., slopeB=-1.0):
@@ -34,7 +33,7 @@ def twosided_IMF(m, Mc=0., slopeA=0., offsetA=1., slopeB=-1.0):
 def mass_function(mass, title):
     
     # histogram
-    #######################################################################
+    ###########################################################################
     
     mass = np.log10(mass[mass > 0.])
     
@@ -54,7 +53,7 @@ def mass_function(mass, title):
     mass_cnt = mass_cnt[mass_cnt >= 0]
     
     # ajust
-    #######################################################################
+    ###########################################################################
     guess = [0.02,-1., 1., 0.]
     
     try:
@@ -86,8 +85,6 @@ def mass_function(mass, title):
     
     return (alpha_high_mass, alpha_low_mass, Mc, offset, Mc_error, alpha_high_mass_error, 
             offset_error, alpha_low_mass_error, mass_bin_ctr, mass_cnt, mass_cnt_er, popt)
-
-
 
 
 #lendo isócronas
@@ -125,16 +122,8 @@ st.set_page_config(page_title="Resultados",layout='wide', page_icon='📈')
 
 cluster_name = st.sidebar.selectbox(
     "Selecione o aglomerado:",
-    (list(list_clusters))
-)
-
-
-
-
-
-
-# def load_cluster(cluster):
-    
+    (list(list_clusters)))
+  
 ###############################################################################
 # read memberships
 members_ship = pd.read_csv('data/membership_data_edr3/{}_data_stars.csv'.
@@ -168,15 +157,13 @@ Av = cluster['Av'][ind]
 e_Av = cluster['e_Av'][ind]
 seg_ratio = cluster['segregation_ratio'][ind]
 
-# st.title('Parâmetros fundamentais:')
 
-# st.info(body, *, icon=None)
-# st.info('This is a purely informational message', icon="ℹ️")
 st.sidebar.subheader("Parâmetros fundamentais:")
-st.sidebar.success(r"$\: log(age)={} \pm {} \\ Dist.={}\pm{} \: kpc \\ Av={}\pm{} \: mag \\ \\  FeH={}\pm{}$".format(age[0],e_age[0],
-                                                                                  dist[0],e_dist[0], 
-                                                                                  Av[0],e_FeH[0],
-                                                                                  FeH[0], e_Av[0]))
+st.sidebar.success(r'$\: log(age)={} \pm {} \\ Dist.={}\pm{} \: kpc \\ Av={}\pm{}' 
+                   '\: mag \\ \\  FeH={}\pm{}$'.format(age[0],e_age[0],
+                                                       dist[0],e_dist[0], 
+                                                       Av[0],e_FeH[0],
+                                                       FeH[0], e_Av[0]))
 
 
 ###############################################################################	
@@ -193,15 +180,13 @@ bin_frac = cluster['bin_frac'][ind]
 
 ###############################################################################	
 st.sidebar.subheader("Resultados:")
-st.sidebar.success(r"$\: M_{{T}}={} \pm {} \: M_{{\odot}} \\ M_{{T-obs}}={} \pm {}  \: M_{{\odot}} \\ Fracao \: Binárias={} \\ Razão \: Segregacao={}$".format(int(mass_total[0]),
-                                                                                                                              int(mass_total_error[0]),
-                                                                                                                              int(vis_mass_total[0]),
-                                                                                                                              int(mass_total_error[0]),
-                                                                                                                              bin_frac[0],
-                                                                                                                              seg_ratio[0]))
-
-
-
+st.sidebar.success(r'$\: M_{{T}}={} \pm {} \: M_{{\odot}} \\ M_{{T-obs}}={} \pm {}'  
+                   '\: M_{{\odot}} \\ Fracao \: Binárias={} \\ Razão \: Segregacao={}$'.format(int(mass_total[0]),
+                                                                                               int(mass_total_error[0]),
+                                                                                               int(vis_mass_total[0]),
+                                                                                               int(mass_total_error[0]),
+                                                                                               bin_frac[0],
+                                                                                               seg_ratio[0]))
 
 #CMD
 #isocrona
@@ -211,14 +196,13 @@ cor_obs = members_ship['BPmag']-members_ship['RPmag']
 absMag_obs = members_ship['Gmag']
 
 #--------------------------------------------------------------------------
-import plotly.express as px
-import plotly.graph_objects as go
-
 
 # with col1:
-cmd_scatter = pd.DataFrame({'G_BPmag - G_RPmag': cor_obs, 'Gmag': absMag_obs, 'Mass': members_ship['mass']})
-cmd_iso = pd.DataFrame({'G_BPmag - G_RPmag': fit_iso['G_BPmag']-fit_iso['G_RPmag'], 'Gmag': fit_iso['Gmag']})
+cmd_scatter = pd.DataFrame({'G_BPmag - G_RPmag': cor_obs, 'Gmag': absMag_obs, 
+                            'Mass': members_ship['mass']})
 
+cmd_iso = pd.DataFrame({'G_BPmag - G_RPmag': fit_iso['G_BPmag']-fit_iso['G_RPmag'], 
+                        'Gmag': fit_iso['Gmag']})
 
 
 fig1 = px.scatter(cmd_scatter, x = 'G_BPmag - G_RPmag', y = 'Gmag',
@@ -232,10 +216,6 @@ fig.update_layout(xaxis_title= 'G_BP - G_RP (mag)',
                   coloraxis_colorbar=dict(title="M☉"),
                   yaxis_range=[20,5])
 
-#height=800,width=900
-
-
-
 ###############################################################################	   
 # RA x DEC 
 # a massa é organizada de acordo com a massa da primaria
@@ -244,7 +224,8 @@ ind = np.argsort(members_ship['mass'])
 
 #--------------------------------------------------------------------------
 # with col2:
-ra_dec = pd.DataFrame({'RA': members_ship['RA_ICRS'][ind], 'DEC': members_ship['DE_ICRS'][ind], 'Mass': members_ship['mass'][ind]})
+ra_dec = pd.DataFrame({'RA': members_ship['RA_ICRS'][ind], 
+                       'DEC': members_ship['DE_ICRS'][ind], 'Mass': members_ship['mass'][ind]})
 
 fig_ra_dec = px.scatter(ra_dec, x = 'RA', y = 'DEC', color= 'Mass', 
                         color_continuous_scale = 'jet_r')
@@ -261,7 +242,6 @@ mass_members_ship = members_ship['mass'] + members_ship['comp_mass']
 star_dist = np.array(c1.separation_3d(c2)*1000)
 
 
-import plotly.figure_factory as ff
 
 seg1 = pd.DataFrame({'Mc < 1M☉': star_dist[mass_members_ship < Mc]})
 
@@ -433,13 +413,8 @@ plot_bin.update_layout(title='αA = {} ± {};  αB = {} ± {};  Mc = {} ± {}'.f
                                                                                xaxis_title = 'log(M☉)',
                                                                                yaxis_title='ξ(log(M☉)')
 
-
-
-
-
 container1 = st.container()
 col1, col2, col3 = st.columns(3)
-
 
 
 with container1:
@@ -488,21 +463,6 @@ with container3:
     with col7:
         st.write("Estrelas Binárias")
         st.plotly_chart(plot_bin, use_container_width=True)
-
-
-
-# def convert_df(df):
-#      # IMPORTANT: Cache the conversion to prevent computation on every rerun
-#      return df.to_csv().encode('utf-8')
-
-# csv = convert_df(my_large_df)
-
-# st.download_button(
-#      label="Download data as CSV",
-     # data=csv,
-     # file_name='large_df.csv',
-     # mime='text/csv',
- # )
 
 
 
