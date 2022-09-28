@@ -10,7 +10,7 @@ Outro propósito deste trabalho é viabilizar o acesso aos dados em português, 
 
 # Execução
 
-Caso o usuário prefira executar esse código em uma rede local, abra o terminal e utilize o seguinte código:
+Caso o usuário prefira executar o dashboard em uma rede local, abra o terminal e utilize o seguinte código:
 
 ```bash
 streamlit run 01_🔵_Apresentação.py
