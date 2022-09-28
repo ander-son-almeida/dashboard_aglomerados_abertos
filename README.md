@@ -6,14 +6,14 @@ Outro propósito deste trabalho é viabilizar o acesso aos dados em português, 
 
 🔗 [Dashboard - Determinação da massa de aglomerados abertos utilizando dados do catálogo EDR3](https://ander-son-almeida-dashboard-aglomerados-a-01--apresentao-m8ok0o.streamlitapp.com/)
 
-[https://www.notion.so](https://www.notion.so)
+![dashboard_gif](https://user-images.githubusercontent.com/70342250/192885272-deaca18c-6f77-4fa4-a881-3cae974dd146.gif)
 
 # Execução
 
 Caso o usuário prefira executar esse código em uma rede local, abra o terminal e utilize o seguinte código:
 
 <aside>
-streamlit run [01_🔵_Apresentação.py](https://github.com/ander-son-almeida/dashboard_aglomerados_abertos/blob/main/01_%F0%9F%94%B5_Apresenta%C3%A7%C3%A3o.py)
+streamlit run 01_🔵_Apresentação.py
 
 </aside>
 
