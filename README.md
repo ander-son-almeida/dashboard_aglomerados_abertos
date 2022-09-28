@@ -12,10 +12,9 @@ Outro propósito deste trabalho é viabilizar o acesso aos dados em português, 
 
 Caso o usuário prefira executar esse código em uma rede local, abra o terminal e utilize o seguinte código:
 
-<aside>
+```bash
 streamlit run 01_🔵_Apresentação.py
-
-</aside>
+```
 
 ## Requisitos
 
